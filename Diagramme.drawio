@@ -1,0 +1,151 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6" pages="4">
+  <diagram name="Interactions Producteur Client" id="DxybiXMkoxkirrlZZ9ca">
+    <mxGraphModel dx="1181" dy="686" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JuNJFw2TLwrSJkW-2QMa-3" value="Plateforme de Click And Collect" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="320" y="100" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="JuNJFw2TLwrSJkW-2QMa-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="JuNJFw2TLwrSJkW-2QMa-4" target="JuNJFw2TLwrSJkW-2QMa-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JuNJFw2TLwrSJkW-2QMa-11" value="Diffuse et vend &lt;br&gt;son produit sur" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="JuNJFw2TLwrSJkW-2QMa-10" vertex="1" connectable="0">
+          <mxGeometry x="0.148" y="-2" relative="1" as="geometry">
+            <mxPoint y="13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JuNJFw2TLwrSJkW-2QMa-4" value="Producteur / Commerce" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="180" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="JuNJFw2TLwrSJkW-2QMa-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="JuNJFw2TLwrSJkW-2QMa-5" target="JuNJFw2TLwrSJkW-2QMa-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JuNJFw2TLwrSJkW-2QMa-14" value="Achète le produit &lt;br&gt;sur" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="JuNJFw2TLwrSJkW-2QMa-13" vertex="1" connectable="0">
+          <mxGeometry x="0.128" y="1" relative="1" as="geometry">
+            <mxPoint y="23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JuNJFw2TLwrSJkW-2QMa-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="JuNJFw2TLwrSJkW-2QMa-5" target="JuNJFw2TLwrSJkW-2QMa-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JuNJFw2TLwrSJkW-2QMa-16" value="Récupère son produit chez" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="JuNJFw2TLwrSJkW-2QMa-15" vertex="1" connectable="0">
+          <mxGeometry x="0.0844" y="1" relative="1" as="geometry">
+            <mxPoint x="15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JuNJFw2TLwrSJkW-2QMa-5" value="Client" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="560" y="180" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="V6Pc8q1XA93pDBgVpum9-1" value="Producteur / Commerce" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="370" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="Wk3A3kOKMgd3rOrP1jiN" name="IHM">
+    <mxGraphModel dx="1426" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hnaZrYBrobWolu-zUmv4-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="1300" height="840" as="geometry" />
+        </mxCell>
+        <mxCell id="hnaZrYBrobWolu-zUmv4-3" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="270" height="840" as="geometry" />
+        </mxCell>
+        <mxCell id="hnaZrYBrobWolu-zUmv4-2" value="&lt;font style=&quot;font-size: 35px;&quot;&gt;Logo&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="65" y="60" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iSEsSI0ZHucalZlbwEwG-1" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Gestion des commandes&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="65" y="180" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="6YVA5xzE-fWJtf7Tws5D-1" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Gestion des stocks&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="65" y="210" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="6YVA5xzE-fWJtf7Tws5D-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="40" width="1030" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6YVA5xzE-fWJtf7Tws5D-4" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="140" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6YVA5xzE-fWJtf7Tws5D-5" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="150" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6YVA5xzE-fWJtf7Tws5D-6" value="Nom du produit" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="405" y="150" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="6YVA5xzE-fWJtf7Tws5D-7" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.container_registry_image;" vertex="1" parent="1">
+          <mxGeometry x="346" y="156" width="38" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="6YVA5xzE-fWJtf7Tws5D-8" value="Quantité (unité)" style="text;html=1;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="190" width="120" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="40gwqI6d-Wf4APwyaPo4" name="Spec Gestionnaire">
+    <mxGraphModel dx="679" dy="400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IQmZN8mjJAcD4VFWeKxQ-6" value="Gestion de stock : la solution doit permettre au producteur de suivre la quantité restante de chaque produit" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" parent="1" vertex="1">
+          <mxGeometry x="40" y="90" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IQmZN8mjJAcD4VFWeKxQ-9" value="Gestion des commandes producteur : le producteur doit pouvoir suivre les commandes de chaque utilisateur" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" parent="1" vertex="1">
+          <mxGeometry x="40" y="230" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IQmZN8mjJAcD4VFWeKxQ-10" value="Prévision des flux et stocks : la solution devrait permettre au producteur de prévoir les flux des produits à court ou moyen terme, en tenant compte des périodes" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" parent="1" vertex="1">
+          <mxGeometry x="40" y="150" width="250" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="IQmZN8mjJAcD4VFWeKxQ-13" value="La solution étant spécifique à chaque client, il doit être le plus simple plus simple." style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" parent="1" vertex="1">
+          <mxGeometry x="770" y="90" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IQmZN8mjJAcD4VFWeKxQ-14" value="Les fonctions doivent être modulaires afin de faciliter le plug-and-play" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" parent="1" vertex="1">
+          <mxGeometry x="770" y="150" width="250" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IQmZN8mjJAcD4VFWeKxQ-15" value="Le core de la solution doit être commune aux clients." style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" parent="1" vertex="1">
+          <mxGeometry x="770" y="200" width="250" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IQmZN8mjJAcD4VFWeKxQ-16" value="La solution doit prédisposer une capacité à s&#39;interfacer à un outil générique" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" parent="1" vertex="1">
+          <mxGeometry x="770" y="250" width="250" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="25B5AXl5xgeNphgVJWdQ-2" value="Fonctions Producteur" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="95" y="40" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4MEQfbOWthD6TXQa_60p-1" value="Avoir un graph de l&#39;évolution des produits, des différentes caractéristiques (prix, quantité, demande, commandes) en fonction du temps" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="250" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="4MEQfbOWthD6TXQa_60p-2" value="Permettre à l&#39;utilisateur de pouvoir annoter le graph, y mettre des points de commentaires" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="370" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_1rYGuhlE-bb0jHiMNPW-1" value="A la création d&#39;un produit, permettre à l&#39;utilisateur d&#39;ajouter une photo de ses fichiers, ou de récupérer une photo en ligne adaptée" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_1rYGuhlE-bb0jHiMNPW-2" value="A la création d&#39;un produit, permettre à l&#39;utilisateur d&#39;ajouter une photo récupérée en ligne via reconnaissance d&#39;image" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="510" width="250" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="juh6ktG_A6D7tY60A89B" name="Spec client/consommateur">
+    <mxGraphModel dx="1426" dy="841" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kWkuaPHEUutSTwZJBD5l-1" value="Gestion de transaction : la solution doit permettre au consommateur d&#39;acheter son produit (paiement)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="90" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kWkuaPHEUutSTwZJBD5l-2" value="Catalogue des produits : la solution doit permettre au consommateur de consulter les différents produits du producteur" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="150" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kWkuaPHEUutSTwZJBD5l-3" value="Gestion des commandes consommateur : suite à l&#39;achat d&#39;un produit, le consommateur doit pouvoir suivre l&#39;état de la commande afin de pouvoir la récupérer" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="330" y="210" width="250" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kWkuaPHEUutSTwZJBD5l-4" value="Fonctions Consommateur" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="365" y="40" width="160" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
