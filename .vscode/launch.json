@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "click_and_collect",
+            "cwd": "Application\\click_and_collect",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "click_and_collect (profile mode)",
+            "cwd": "Application\\click_and_collect",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "click_and_collect (release mode)",
+            "cwd": "Application\\click_and_collect",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

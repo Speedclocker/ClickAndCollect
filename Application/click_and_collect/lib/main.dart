@@ -3,6 +3,22 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future<List<dynamic>> fetchProducts() async {
+  print("Bruh");
+  final response = await http.get(
+    Uri.parse('http://127.0.0.1:8000/product/')
+  );
+
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  } else {
+    throw Exception('Erreur API');
+  }
+}
+
 void main() {
   runApp(MyApp());
 }
@@ -61,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     switch(selectedIndex)
     {
       case 0:
-      page = FavoritesPage();
+      page = GestionDesCommandesPage();
       break;
       case 1:
       page = GestionDesStocksPage();
@@ -117,36 +133,43 @@ class _MyHomePageState extends State<MyHomePage> {
 class GestionDesStocksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-  //var appState = context.watch<MyAppState>();
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           Expanded(
-            child: ListView(
-              children: [
-                ProductCard(
-                  imageLink: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/1200px-Red_Apple.jpg",
-                  productName: "Pommes", 
-                  quantityAvailable: 41.6,
-                  unitOfMeasurement: "kg"
-                ),
-                ProductCard(
-                  imageLink: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
-                  productName: "Bananes", 
-                  quantityAvailable: 35.3,
-                  unitOfMeasurement: "kg"
-                ),
-                ProductCard(
-                  imageLink: "https://media.istockphoto.com/id/120742288/fr/photo/jus-dorange.jpg?s=612x612&w=0&k=20&c=kzTPf-07pLaVTV6yj5BkjOiSqD4mvSW9mAz6KyoJYDY=",
-                  productName: "Jus d'orange (1L)", 
-                  quantityAvailable: 100,
-                  unitOfMeasurement: "bouteille(s)"
-                ),
-              ],
+            child: FutureBuilder(
+              future: fetchProducts(), 
+              builder: (context, snapshot)
+              {
+                // Loading
+                if(snapshot.connectionState == ConnectionState.waiting)
+                {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                // In case of error
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Erreur : ${snapshot.error}'),
+                  );
+                }
+
+                // In case of success
+                final products = snapshot.data!; // products non nullable
+
+                return ListView(
+                  children: [
+                    for (var product in products)
+                    ProductCard(
+                      imageLink: product["imageLink"],
+                      productName: product["name"],
+                      quantityAvailable: product["quantity"],
+                      unitOfMeasurement: product["unitOfMeasurement"],
+                    )
+                  ],
+                );
+              }
             ),
           ),
         ],
@@ -155,36 +178,6 @@ class GestionDesStocksPage extends StatelessWidget {
   }
 }
 
-class LikeButton extends StatelessWidget {
-  const LikeButton({
-    super.key,
-    required this.appState,
-  });
-
-  final MyAppState appState;
-
-  @override
-  Widget build(BuildContext context) {
-    
-    IconData icon;
-    if(appState.favorites.contains(appState.current))
-    {
-      icon = Icons.favorite;
-    }
-    else
-    {
-      icon = Icons.favorite_border;
-    }
-
-    return ElevatedButton.icon(onPressed: () 
-      {
-        appState.toggleFavorite();
-      },
-      icon: Icon(icon),
-      label: Text("Like"),
-    );
-  }
-}
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -212,7 +205,7 @@ class ProductCard extends StatelessWidget {
               leading: SizedBox(
                 width: 50,
                 child: ClipRRect(
-                  borderRadius: BorderRadiusGeometry.circular(10),
+                  borderRadius: BorderRadius.circular(10),
                   child: Image.network(imageLink),
                 ),
               ), 
@@ -227,7 +220,7 @@ class ProductCard extends StatelessWidget {
   }
 }
 
-class FavoritesPage extends StatelessWidget {
+class GestionDesCommandesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 

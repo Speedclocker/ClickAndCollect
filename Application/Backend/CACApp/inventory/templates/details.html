@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Click And Collect - {{ product.name }} details
+{% endblock %}
+
+
+{% block content %}
+<h1>{{ product.name }}</h1>
+  
+<p>Quantity : {{ product.quantity }} {{ product.unitOfMeasurement }}</p>
+<p>More information: TBD </p>
+
+<p>Back to <a href="/inventory">Products</a></p>
+
+{% endblock %}
