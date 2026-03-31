@@ -3,20 +3,51 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'config.dart';
 
 Future<List<dynamic>> fetchProducts() async {
   final response = await http.get(
-    Uri.parse('http://127.0.0.1:8000/product/')
+    Uri.parse('$bddUrl/products/')
   );
 
   if (response.statusCode == 200) {
     return jsonDecode(response.body);
   } else {
+    // TODO : Afficher une page d'erreur plus détaillée, avec un bouton de retry
     throw Exception('Erreur API');
   }
 }
 
-class GestionDesStocksPage extends StatelessWidget {
+Future<List<dynamic>> fetchCrops(String productName) async {
+  final response = await http.get(
+    Uri.parse('$bddUrl/crops/?product_name=$productName')
+  );
+
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  } else {
+    // TODO : Afficher une page d'erreur plus détaillée, avec un bouton de retry
+    throw Exception('Erreur API');
+  }
+}
+
+
+class GestionDesStocksPage extends StatefulWidget {
+  @override
+  State<GestionDesStocksPage> createState() => _GestionDesStocksPageState();
+}
+
+
+
+class _GestionDesStocksPageState extends State<GestionDesStocksPage> {
+  late Future<List<dynamic>> productsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    productsFuture = fetchProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +59,7 @@ class GestionDesStocksPage extends StatelessWidget {
             children: [
               Expanded(
                 child: FutureBuilder(
-                  future: fetchProducts(), 
+                  future: productsFuture, 
                   builder: (context, snapshot)
                   {
                     // Loading
@@ -51,11 +82,14 @@ class GestionDesStocksPage extends StatelessWidget {
                       itemCount: products.length,
                       itemBuilder: (context, index)
                       {
+                        // In case of success
                         return ProductCard(
-                          imageLink: products[index]["imageLink"],
-                          productName: products[index]["name"],
-                          quantityAvailable: products[index]["quantity"],
-                          unitOfMeasurement: products[index]["unitOfMeasurement"],
+                          product: Product(
+                            imageLink: products[index]["image_link"], 
+                            name: products[index]["name"], 
+                            quantityAvailable: double.parse(products[index]["total_stock"].toString()), 
+                            unitOfMeasurement: products[index]["unit_of_measurement"], 
+                            cost: double.parse(products[index]["cost"]))
                         );
                       }
                     );
@@ -71,22 +105,31 @@ class GestionDesStocksPage extends StatelessWidget {
 }
 
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
-    super.key,
+class Product {
+  final String imageLink, name, unitOfMeasurement;
+  final double quantityAvailable, cost;
+
+  const Product({
     required this.imageLink,
-    required this.productName,
+    required this.name,
     required this.quantityAvailable,
     required this.unitOfMeasurement,
+    required this.cost
   });
+}
 
-  final String imageLink, productName, unitOfMeasurement;
-  final double quantityAvailable;
-  
+// Card affichant les informations clés d'un produit (prix, quantité nette, valorisation nette, etc.) et permettant d'accéder à la page de détails du produit 
+class ProductCard extends StatelessWidget {
+  final Product product;
+
+  const ProductCard({
+    super.key,
+    required this.product
+  });
 
   @override
   Widget build(BuildContext context) {
-    var quantityAvailableStr = quantityAvailable.toString();
+    var quantityAvailableStr = product.quantityAvailable.toString();
     return InkWell(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -99,14 +142,14 @@ class ProductCard extends StatelessWidget {
                   width: 50,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(imageLink),
+                    child: Image.network(product.imageLink),
                   ),
                 ), 
-                title: Text(productName),
-                subtitle: Text("Quantité : $quantityAvailableStr $unitOfMeasurement"),
+                title: Text(product.name),
+                subtitle: Text("Quantité : $quantityAvailableStr ${product.unitOfMeasurement}"),
                 onTap: () {
                   Navigator.of(context).push(
-                    createRoute(ProduitPage(produit: this))
+                    createRoute(ProductPage(product: product))
                   );
                 } 
               )
@@ -140,13 +183,30 @@ Route createRoute(Widget page)
   );
 }
 
-class ProduitPage extends StatelessWidget {
-  final ProductCard produit;
+class ProductPage extends StatefulWidget {
+  final Product product;
 
-  const ProduitPage({super.key, required this.produit});
+  const ProductPage({ super.key, required this.product });
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+// Page affichant les détails d'un produit, avec les informations clés (prix, quantité nette, valorisation nette, etc.) et un tableau détaillé par récolte
+class _ProductPageState extends State<ProductPage> {
+  late Future<List<dynamic>> cropsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    cropsFuture = fetchCrops(widget.product.name);
+  }
+
+  //final ProductCard produit;
   
   @override
   Widget build(BuildContext context) {
+    final Product product = widget.product;
     return Scaffold(
       appBar: AppBar(backgroundColor: Theme.of(context).secondaryHeaderColor,),
       body: Container(
@@ -166,12 +226,12 @@ class ProduitPage extends StatelessWidget {
                         clipBehavior: Clip.antiAlias,
                         child: ClipRRect(
                           borderRadius: BorderRadiusGeometry.all(Radius.circular(10)),
-                          child: Image.network(produit.imageLink)
+                          child: Image.network(product.imageLink)
                         ),
                       ),
                     ),
                   ),
-                Text(produit.productName, textScaler: TextScaler.linear(3)),
+                Text(product.name, textScaler: TextScaler.linear(3)),
               ],
             ),
             Padding(
@@ -181,10 +241,10 @@ class ProduitPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InformationCard(caption: "Prix (/${produit.unitOfMeasurement})", value: "1.99 €"),
-                InformationCard(caption: "Quantité nette", value: "${produit.quantityAvailable} ${produit.unitOfMeasurement}"),
-                InformationCard(caption: "Valorisation nette", value: "${(1.99*produit.quantityAvailable).toStringAsFixed(2)} €"),
-                InformationCard(caption: "Quantité brute", value: "${produit.quantityAvailable} ${produit.unitOfMeasurement}"),
+                InformationCard(caption: "Prix (/${product.unitOfMeasurement})", value: "${product.cost} €"),
+                InformationCard(caption: "Quantité nette", value: "${product.quantityAvailable} ${product.unitOfMeasurement}"),
+                InformationCard(caption: "Valorisation nette", value: "${(product.cost*product.quantityAvailable).toStringAsFixed(2)} €"),
+                //InformationCard(caption: "Quantité brute", value: "${product.quantityAvailable} ${product.unitOfMeasurement}"),
               ],
             ), // Quantité réelle présente en stock
             Padding(
@@ -195,10 +255,46 @@ class ProduitPage extends StatelessWidget {
             
             // Tableau détaillé par récolte
             // Une ligne correspond à une date de récolte
-            Row(
-              children: [
-                Expanded(child: RecolteTable(produit: produit)),
-              ],
+            FutureBuilder(              
+              future: cropsFuture,
+              builder: (context, snapshot) {
+                // TODO: Gérer la mise en cache des données, pour éviter de faire une requête à chaque fois que l'on clique sur un produit
+
+                // Loading
+                if(snapshot.connectionState == ConnectionState.waiting)
+                {
+                  return const Center(child: CircularProgressIndicator());
+                }
+    
+                // In case of error
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Erreur : ${snapshot.error}'),
+                  );
+                }
+    
+                // In case of success
+                final cropsData = snapshot.data!; // products non nullable
+                List<Crop> crops = [];
+                for (var cropData in cropsData) {         
+                  crops.add(
+                    Crop(
+                      productName: cropData["product_name"],
+                      produceDate: DateTime.parse(cropData["produce_date"]),
+                      expirationDate: DateTime.parse(cropData["expiration_date"]),
+                      storageLocation: cropData["storage_location"],
+                      quantity: double.parse(cropData["quantity"].toString()),
+                      valorization: double.parse(cropData["quantity"].toString()) * product.cost
+                    )
+                  );
+                }
+
+                return Row(
+                  children: [
+                    Expanded(child: CropsTable(crops: crops, unitOfMeasurement: product.unitOfMeasurement)),
+                  ],
+                );
+              }
             ),
                     
             // Courbe d'évolution du produit
@@ -216,6 +312,7 @@ class ProduitPage extends StatelessWidget {
 
 }
 
+// Card d'information utilisée pour afficher les informations clés d'un produit (prix, quantité nette, valorisation nette, etc.)
 class InformationCard extends StatelessWidget {
   final String value;
   final String caption;
@@ -251,12 +348,27 @@ class InformationCard extends StatelessWidget {
   }
   
 }
-  
 
-class RecolteTable extends StatelessWidget {
-  final ProductCard produit;
+class Crop {
+  final DateTime produceDate, expirationDate;
+  final String productName, storageLocation;
+  final double quantity, valorization;
 
-  const RecolteTable({super.key, required this.produit});
+  const Crop({
+    required this.produceDate,
+    required this.expirationDate,
+    required this.productName,
+    required this.storageLocation,
+    required this.quantity,
+    required this.valorization
+  });
+}
+
+class CropsTable extends StatelessWidget {
+  final List<Crop> crops;
+  final String unitOfMeasurement;
+
+  const CropsTable({super.key, required this.crops, required this.unitOfMeasurement});
 
 
   @override
@@ -274,7 +386,7 @@ class RecolteTable extends StatelessWidget {
               label: Text("Lieu de stockage")
             ),
             DataColumn(
-              label: Text("Quantité nette (${produit.unitOfMeasurement})")
+              label: Text("Quantité nette ($unitOfMeasurement)")
             ),
             DataColumn(
               label: Text("Date limite de conservation")
@@ -282,32 +394,22 @@ class RecolteTable extends StatelessWidget {
             DataColumn(
               label: Text("Valorisation (€)")
             ),
-          ], rows: createRows(DateTime(2026,1,1), "Paris", produit.quantityAvailable, DateTime(2026,1,15), produit.quantityAvailable*1.99)),
+          ], rows: createRows(crops)),
       ),
     );
   }
 
-  List<DataRow> createRows(DateTime dateRecolte, String lieuStockage, double quantite, DateTime dateLimiteCons, double valorisation)
+  List<DataRow> createRows(List<Crop> crops)
   {
-    List<Map> recoltes = [
-      {
-        "dateRecolte" : dateRecolte,
-        "lieuStockage" : lieuStockage,
-        "quantite" : quantite,
-        "dateLimiteCons" : dateLimiteCons,
-        "valorisation" : valorisation
-      }
-    ];
-    
-    return recoltes.map((recolte) {
+    return crops.map((crop) {
       return DataRow(
         cells: 
         [
-          DataCell(Text(recolte["dateRecolte"].toString().split(' ')[0])),
-          DataCell(Text(recolte["lieuStockage"].toString())),
-          DataCell(Text(recolte["quantite"].toString())),
-          DataCell(Text(recolte["dateLimiteCons"].toString().split(' ')[0])),
-          DataCell(Text((recolte["valorisation"] as double).toStringAsFixed(2).toString())),
+          DataCell(Text(crop.produceDate.toString().split(' ')[0])),
+          DataCell(Text(crop.storageLocation)),
+          DataCell(Text(crop.quantity.toString())),
+          DataCell(Text(crop.expirationDate.toString().split(' ')[0])),
+          DataCell(Text(crop.valorization.toStringAsFixed(2).toString())),
         ]
       );
     }).toList();

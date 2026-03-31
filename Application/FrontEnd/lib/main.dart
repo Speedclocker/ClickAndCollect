@@ -1,5 +1,3 @@
-
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,24 +30,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-
-  void getNext()
-  {
-    current = WordPair.random();
-    notifyListeners();
-  }
-
-  var favorites = <WordPair>[];
-
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
-    notifyListeners();
-  }
+  //TODO: Gérer la mise en cache des données, et les appels à l'API
 }
 
 class MyHomePage extends StatefulWidget {
@@ -162,26 +143,13 @@ class GestionDesCommandesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var appState = context.watch<MyAppState>();
-    var favorites = appState.favorites;
-    var theme = Theme.of(context);
-    final style = theme.textTheme.displaySmall!.copyWith(color: theme.colorScheme.onSecondary, fontSize: 20);
+    //var theme = Theme.of(context);
+    //final style = theme.textTheme.displaySmall!.copyWith(color: theme.colorScheme.onSecondary, fontSize: 20);
 
-    return Container(
-      color: Theme.of(context).colorScheme.primaryContainer,
-      child: ListView(
-        children: favorites.map((pair) => 
-            Card(
-              color: theme.colorScheme.secondary,
-              elevation: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(pair.asString, style: style),
-              ),
-            )
-        ).toList()
-      ),
-    );
+    // ---- To Do ----
+
+  
+    return Placeholder();
   }
 }
 
