@@ -60,7 +60,7 @@ class StatusPill extends StatelessWidget{
         if(value == StatusPillValue.ok)
         {
           return Container(
-            width: 50,
+            width: 60,
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
               color: Colors.green.withAlpha(40),
@@ -80,7 +80,7 @@ class StatusPill extends StatelessWidget{
         else if(value == StatusPillValue.low)
         {
           return Container(
-            width: 50,
+            width: 60,
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
               color: Colors.orange.withAlpha(40),
@@ -100,7 +100,7 @@ class StatusPill extends StatelessWidget{
         else
         {
           return Container(
-            width: 50,
+            width: 60,
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
               color: Colors.red.withAlpha(40),

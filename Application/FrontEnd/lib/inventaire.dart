@@ -193,9 +193,18 @@ class ProductRow extends StatelessWidget {
             Expanded(flex: 3, child: Text(product.name)),
             Expanded(flex: 3, child: Text("${product.quantityAvailable} ${product.unitOfMeasurement}")),
             Expanded(flex: 3, child: Text("${(product.cost*product.quantityAvailable).toStringAsFixed(2)} €")),
-            SizedBox(
-              width: 80,
-              child: StatusPill(value: StatusPillValue.ok)
+            Builder(
+              builder: (context) {
+                // TODO: Faire évoluer le StatusPill en les rendant plus pertinent et en tenant compte de l'évolution des stocks au fil du temps 
+                StatusPillValue statusPillValue = product.quantityAvailable > 0 ? StatusPillValue.ok : StatusPillValue.out;
+                return SizedBox(
+                  width: 80,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: StatusPill(value: statusPillValue)
+                  )
+                );
+              }
             ),
           ],
         ),
