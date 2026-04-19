@@ -18,6 +18,7 @@ Future<List<dynamic>> fetchProducts() async {
   }
 }
 
+
 // Modèle de données pour un produit, avec les informations clés (prix, quantité nette, valorisation nette, etc.) et une liste de récoltes détaillées
 class Product {
   final String imageLink, name, unitOfMeasurement;

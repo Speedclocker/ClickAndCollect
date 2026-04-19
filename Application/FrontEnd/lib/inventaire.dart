@@ -1,4 +1,6 @@
+import 'package:click_and_collect/main.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'commonwidgets.dart';
 import 'productpage.dart';
@@ -15,19 +17,57 @@ class GestionDesStocksPage extends StatefulWidget {
 // State de la page de gestion des stocks, avec une requête pour récupérer la liste des produits en stock et un FutureBuilder pour afficher la liste des produits
 class _GestionDesStocksPageState extends State<GestionDesStocksPage> {
   late Future<List<dynamic>> productsFuture;
+  late bool successFetching;
   var totalValorisationString = "-- €";
   var totalProduits = "--";
 
   @override
   void initState() {
     super.initState();
-    productsFuture = fetchProducts();
+
+    // Récupération données des produits en cache
+    final cached = context.read<MyAppState>().cacheManager.getCachedProducts();
+    if(cached != null){
+      // Si le cache est valide, on récupère les données
+      productsFuture = Future.value(cached);
+    }
+    else{
+      // Si il ne l'est pas, on fetch et on met en cache les données récupérées
+
+      productsFuture = fetchProducts().catchError((err) {
+        throw err;
+      }).then(
+        (data) {
+          successFetching = true;
+          if(mounted) context.read<MyAppState>().cacheManager.cacheProducts(data);
+          return data;
+        },
+        onError: (err) {
+          successFetching = false;
+          //TODO : Poursuivre la gestion d'erreur dans l'interface
+        }
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: (){
+              context.read<MyAppState>().cacheManager.clearProductsCache();
+              setState(() {
+                productsFuture = fetchProducts().then((data) {
+                  if(context.mounted) context.read<MyAppState>().cacheManager.cacheProducts(data);
+                  return data;
+                });
+              });
+            }, 
+            icon: Icon(Icons.refresh)
+          ),
+        ],
         backgroundColor: Theme.of(context).colorScheme.surface, 
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -193,19 +233,14 @@ class ProductRow extends StatelessWidget {
             Expanded(flex: 3, child: Text(product.name)),
             Expanded(flex: 3, child: Text("${product.quantityAvailable} ${product.unitOfMeasurement}")),
             Expanded(flex: 3, child: Text("${(product.cost*product.quantityAvailable).toStringAsFixed(2)} €")),
-            Builder(
-              builder: (context) {
-                // TODO: Faire évoluer le StatusPill en les rendant plus pertinent et en tenant compte de l'évolution des stocks au fil du temps 
-                StatusPillValue statusPillValue = product.quantityAvailable > 0 ? StatusPillValue.ok : StatusPillValue.out;
-                return SizedBox(
-                  width: 80,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: StatusPill(value: statusPillValue)
-                  )
-                );
-              }
-            ),
+            // TODO: Faire évoluer le StatusPill en les rendant plus pertinent et en tenant compte de l'évolution des stocks au fil du temps 
+            SizedBox(
+              width: 80,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: StatusPill(value: product.quantityAvailable > 0 ? StatusPillValue.ok : StatusPillValue.out)
+              )
+            )
           ],
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'theme.dart';
+
 
 // Card d'information utilisée pour afficher les informations clés d'un produit (prix, quantité nette, valorisation nette, etc.)
 class InformationCard extends StatelessWidget {
@@ -54,6 +56,8 @@ class StatusPill extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final appColors = Theme.of(context).extension<AppColors>()!;
+
     return Builder(
       builder: (context)
       {
@@ -63,14 +67,14 @@ class StatusPill extends StatelessWidget{
             width: 60,
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.green.withAlpha(40),
+              color: appColors.okPillColor.withAlpha(40),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
               "OK",
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.green,
+                color: appColors.okPillColor,
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
               ),
@@ -83,14 +87,14 @@ class StatusPill extends StatelessWidget{
             width: 60,
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.orange.withAlpha(40),
+              color: appColors.lowPillColor.withAlpha(40),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
               "Faible",
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.orange,
+                color: appColors.lowPillColor,
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
               ),
@@ -103,14 +107,14 @@ class StatusPill extends StatelessWidget{
             width: 60,
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.red.withAlpha(40),
+              color: appColors.outPillColor.withAlpha(40),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
               "Epuisé",
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.red,
+                color: appColors.outPillColor,
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
               ),

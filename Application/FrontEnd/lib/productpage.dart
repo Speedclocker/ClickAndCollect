@@ -1,4 +1,6 @@
+import 'package:click_and_collect/main.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'models.dart';
 import 'commonwidgets.dart';
@@ -22,10 +24,25 @@ class _ProductPageState extends State<ProductPage> {
   void initState() {
     super.initState();
     cropsFuture = fetchCrops(widget.product.name);
-  }
 
-  //final ProductCard produit;
+    
+    // Récupération données des crops en cache
+    final cached = context.read<MyAppState>().cacheManager.getCachedCrops(widget.product.name);
+    if(cached != null){
+      // Si le cache est valide, on récupère les données des crops
+      cropsFuture = Future.value(cached);
+    }
+    else{
+      // Si il ne l'est pas, on fetch et on met en cache les données récupérées
+      cropsFuture = fetchCrops(widget.product.name).then((data) {
+        if(mounted) context.read<MyAppState>().cacheManager.cacheCrops(widget.product.name, data);
+        return data;
+      });
+    }
+  }
   
+
+
   @override
   Widget build(BuildContext context) {
     final Product product = widget.product;
@@ -78,9 +95,7 @@ class _ProductPageState extends State<ProductPage> {
             // Une ligne correspond à une date de récolte
             FutureBuilder(              
               future: cropsFuture,
-              builder: (context, snapshot) {
-                // TODO: Gérer la mise en cache des données, pour éviter de faire une requête à chaque fois que l'on clique sur un produit
-            
+              builder: (context, snapshot) {            
                 // Loading
                 if(snapshot.connectionState == ConnectionState.waiting)
                 {

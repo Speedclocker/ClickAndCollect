@@ -1,3 +1,4 @@
+import 'package:click_and_collect/cache.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,9 +28,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  //TODO: Gérer la mise en cache des données, et les appels à l'API
   ThemeMode themeMode = ThemeMode.light;
 
+  // Gestionnaire de cache
+  CacheManager _cacheManager = CacheManager(cacheDuration: Duration(seconds: 30));
+
+  CacheManager get cacheManager => _cacheManager;
+
+  // Changement de theme
   void toggleThemeMode() {
     themeMode = (themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light);
     notifyListeners(); // Notify listeners to rebuild the UI with the new theme mode
@@ -119,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Expanded(
                   child: IndexedStack(
+                    // Préserve l'état de la page. Pour la mettre à jour, il faut l'actualiser
                     index: selectedIndex,
                     children: [
                       SectionNavigator(

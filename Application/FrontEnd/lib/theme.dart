@@ -5,17 +5,21 @@ const accentColor = Color(0xFF2D7DD2);
 class AppColors extends ThemeExtension<AppColors> {
   final Color railColor;
   final Color selectedIconColor, unselectedIconColor;
+  final Color okPillColor, lowPillColor, outPillColor;
   final Color indicatorColor;
 
-  AppColors({required this.railColor, required this.selectedIconColor, required this.unselectedIconColor, required this.indicatorColor});
+  AppColors({required this.railColor, required this.selectedIconColor, required this.unselectedIconColor, required this.indicatorColor, required this.okPillColor, required this.lowPillColor, required this.outPillColor});
 
   @override
-  AppColors copyWith({Color? railColor, Color? selectedIconColor, Color? unselectedIconColor, Color? indicatorColor}) {
+  AppColors copyWith({Color? railColor, Color? selectedIconColor, Color? unselectedIconColor, Color? indicatorColor, Color? okPillColor, Color? lowPillColor, Color? outPillColor}) {
     return AppColors(
       railColor: railColor ?? this.railColor,
       selectedIconColor: selectedIconColor ?? this.selectedIconColor,
       unselectedIconColor: unselectedIconColor ?? this.unselectedIconColor,
-      indicatorColor: indicatorColor ?? this.indicatorColor,
+      indicatorColor: indicatorColor ?? this.indicatorColor, 
+      okPillColor: okPillColor ?? this.okPillColor, 
+      lowPillColor: lowPillColor ?? this.lowPillColor, 
+      outPillColor: outPillColor ?? this.outPillColor,
     );
   }
 
@@ -28,7 +32,10 @@ class AppColors extends ThemeExtension<AppColors> {
       railColor: Color.lerp(railColor, other.railColor, t)!,
       selectedIconColor: Color.lerp(selectedIconColor, other.selectedIconColor, t)!,
       unselectedIconColor: Color.lerp(unselectedIconColor, other.unselectedIconColor, t)!,
-      indicatorColor: Color.lerp(indicatorColor, other.indicatorColor, t)!,
+      indicatorColor: Color.lerp(indicatorColor, other.indicatorColor, t)!, 
+      okPillColor: Color.lerp(okPillColor, other.okPillColor, t)!, 
+      lowPillColor: Color.lerp(lowPillColor, other.lowPillColor, t)!, 
+      outPillColor: Color.lerp(outPillColor, other.outPillColor, t)!,
     );
   }
 }
@@ -48,7 +55,10 @@ final ThemeData lightTheme = ThemeData(
       railColor: Color(0xFF2C4A6E), 
       selectedIconColor: Colors.white, 
       unselectedIconColor: Color(0xFF7FA3C8),
-      indicatorColor: Color(0x26FFFFFF)
+      indicatorColor: Color(0x26FFFFFF), 
+      okPillColor: Colors.green, 
+      lowPillColor: Colors.orange, 
+      outPillColor: Colors.red
       ),
   ],
 );
@@ -68,7 +78,10 @@ final ThemeData darkTheme = ThemeData(
       railColor: Color(0xFF1A2332), 
       selectedIconColor: Color(0xFF2D7DD2), 
       unselectedIconColor: Color(0xFF6B7A8D),
-      indicatorColor: Color(0x26FFFFFF)
+      indicatorColor: Color(0x26FFFFFF),
+      okPillColor: Colors.green, 
+      lowPillColor: Colors.orange, 
+      outPillColor: Colors.red
       ),
   ],
 );
